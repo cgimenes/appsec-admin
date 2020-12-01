@@ -1,0 +1,78 @@
+<% content_for :title do %>
+  Vulnerability <%= @vuln.id %>
+<% end %>
+
+<% content_for :operations do %>
+  <button class="btn btn-outline-info" data-toggle="modal" data-target="#change-history">
+    <span>Change history</span>
+  </button>
+
+  <button class="btn btn-outline-info" data-toggle="modal" data-target="#comments">
+    <span>Comments</span>
+  </button>
+
+  <% if can? :create, Vuln %>
+    <%= link_to 'Clone', clone_vuln_path(@vuln), class: 'btn btn-outline-secondary' %>
+  <% end %>
+  <%= render 'shared/operations', type: Vuln, model: @vuln %>
+<% end %>
+
+<div class="row">
+  <div class="col">
+    <div>
+      <strong>Title:</strong>
+      <%= @vuln.title %>
+    </div>
+
+    <div>
+      <strong>Description:</strong>
+      <pre><%= @vuln.description %></pre>
+    </div>
+
+    <div>
+      <strong>Risk:</strong>
+      <span class="<%= risk_class @vuln.risk %>"><%= @vuln.risk.humanize %></span>
+    </div>
+
+    <div>
+      <strong>Team:</strong>
+      <%= link_to @vuln.team.name, @vuln.team %>
+    </div>
+
+    <div>
+      <strong>Status:</strong>
+      <span class="<%= status_class @vuln.status %>"><%= @vuln.status.humanize %></span>
+    </div>
+  </div>
+  <div class="col">
+    <div>
+      <strong>Reported at:</strong>
+      <%= @vuln.reported_at %>
+    </div>
+
+    <div>
+      <strong>Days:</strong>
+      <%= @vuln.days %>
+    </div>
+
+    <div>
+      <strong>Affected asset:</strong>
+      <%= link_to @vuln.affected_asset.name, @vuln.affected_asset, class: 'break-word' %>
+    </div>
+
+    <div>
+      <strong>Fixed at:</strong>
+      <%= @vuln.fixed_at %>
+    </div>
+
+    <div>
+      <strong>Reporter:</strong>
+      <% unless @vuln.reporter.nil? %>
+        <%= link_to @vuln.reporter.fullname, @vuln.reporter %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render 'change_history' %>
+<%= render 'comments', comment: @comment %>

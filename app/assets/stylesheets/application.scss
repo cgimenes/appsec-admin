@@ -1,0 +1,109 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require font-awesome
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap";
+
+.table-nonfluid {
+  width: auto !important;
+}
+
+.table-va-middle td {
+  vertical-align: middle;
+}
+
+.table-ws-nowrap th, .table-ws-nowrap td {
+  white-space: nowrap;
+}
+
+.table-wb-word td {
+  word-break: break-word;
+}
+
+.table-text-truncate td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-mw-400px td {
+  max-width: 400px;
+}
+
+.notifications {
+  max-width: 400px;
+  display: inline-block;
+  margin: 0 auto;
+  position: fixed;
+  z-index: 1031;
+  bottom: 20px;
+  right: 20px;
+}
+
+.table-responsive .table {
+  margin-bottom: 0;
+}
+
+.table-responsive {
+  margin-bottom: 1rem;
+}
+
+.filters .form-group {
+  margin-right: 1rem !important;
+}
+
+fieldset.collapsible {
+  border-top: 1px solid #e4e4e4;
+}
+
+fieldset.collapsible > legend {
+  padding-left: 5px;
+  padding-right: 10px;
+  cursor: pointer;
+  width: auto;
+  font-size: 0.75rem;
+  font-family: Verdana;
+}
+
+fieldset.collapsible > legend::before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 4px;
+  content: "\f107";
+}
+
+.col pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+html, body {
+  height: 100%;
+}
+
+pre {
+  -webkit-overflow-scrolling: touch;
+  background-color: whitesmoke;
+  overflow-x: auto;
+  padding: 1.25rem 1.5rem;
+}
+
+a.no-hover:hover {
+  color: inherit;
+  text-decoration: inherit;
+}

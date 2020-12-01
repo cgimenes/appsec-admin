@@ -1,0 +1,57 @@
+<% content_for :title do %>
+  User <%= @user.id %>
+<% end %>
+
+<% content_for :operations do %>
+  <% if can? :update, User %>
+    <%= link_to 'Edit', url_for([:edit, @user]), class: "btn btn-outline-secondary" %>
+  <% end %>
+  <% if can? :destroy, User %>
+    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#destroy">
+      <span>Destroy</span>
+    </button>
+  <% end %>
+<% end %>
+
+<div>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</div>
+
+<div>
+  <strong>Fullname:</strong>
+  <%= @user.fullname %>
+</div>
+
+<div>
+  <strong>Role:</strong>
+  <%= @user.role&.humanize %>
+</div>
+
+<hr>
+
+<div class="modal fade" id="destroy" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Destroy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= bootstrap_form_with(model: @user, local: true, method: :delete) do |form| %>
+          <%= form.form_group do %>
+            <%= form.check_box :transfer_references_to_another_user, {'data-toggle': "collapse", 'data-target': '#collapseUsername', 'aria-expanded': 'false', 'aria-controls': 'collapseUsername'} %>
+            <div class="collapse" id="collapseUsername">
+              <%= form.label :new_username %>
+              <%= form.ungrouped_text_field :new_username %>
+            </div>
+          <% end %>
+          <%= form.submit 'Destroy', class: 'btn-block btn-danger' %>
+        <% end %>
+        <%#= link_to 'Destroy', @user, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-outline-danger #{local_assigns.fetch(:html_class, '')}" %>
+      </div>
+    </div>
+  </div>
+</div>

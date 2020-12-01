@@ -1,0 +1,13 @@
+<% if success %>
+  $('.notifications').append(`<%= render partial: 'shared/notification', locals: {message: 'Team was successfully created.', type: :notice} %>`);
+  $('#new-team').modal('hide');
+
+  var select = $('#' + $('#team-form-field select')[0].id);
+  select.empty().append($('<option></option>').attr("value", "").text(""));
+  <% Team.all.includes([:business_unit]).each do |t| %>
+    select.append($('<option></option>').attr("value", "<%= t.id %>").text("<%= t.fullname %>"));
+  <% end %>
+  $('#new-team .modal-body').html(`<%= render partial: 'form', locals: {team: Team.new, local: false, format: :js} %>`);
+<% else %>
+  $('#new-team .modal-body').html(`<%= render partial: 'form', locals: {team: team, local: false, format: :js} %>`);
+<% end %>

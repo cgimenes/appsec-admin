@@ -1,0 +1,17 @@
+<% content_for :title do %>
+  Asset <%= @asset.id %>
+<% end %>
+
+<% content_for :operations do %>
+  <%= render 'shared/operations', type: Asset, model: @asset %>
+<% end %>
+
+<div>
+  <strong>Name:</strong>
+  <%= @asset.name %>
+</div>
+
+<div>
+  <strong>Description:</strong>
+  <pre><%= @asset.description %></pre>
+</div>

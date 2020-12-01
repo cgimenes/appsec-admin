@@ -1,0 +1,6 @@
+<% if can? :update, type %>
+  <%= link_to 'Edit', url_for([:edit, model]), class: "btn btn-outline-secondary #{local_assigns.fetch(:html_class, '')}" %>
+<% end %>
+<% if can? :destroy, type %>
+  <%= link_to 'Destroy', model, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-outline-danger #{local_assigns.fetch(:html_class, '')}" %>
+<% end %>

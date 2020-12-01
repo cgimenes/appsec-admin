@@ -1,0 +1,21 @@
+sqlite: &sqlite
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *sqlite
+  database: db/development.sqlite3
+
+test:
+  <<: *sqlite
+  database: db/test.sqlite3
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: appsec_db
+  username: appsec_user
+  password: "05d4e7489999396e084eb4617ae996ab"
+  host: "127.0.0.1"

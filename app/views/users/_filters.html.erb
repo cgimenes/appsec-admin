@@ -1,0 +1,20 @@
+<%= search_form_for @query, builder: BootstrapRansackFormBuilder do |f| %>
+  <div class="d-flex flex-wrap">
+    <%= f.form_group do %>
+      <%= f.label :email_cont %>
+      <%= f.search_field :email_cont %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :fullname_cont %>
+      <%= f.search_field :fullname_cont %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :role_eq %>
+      <%= f.select :role_eq, User.role.options, {:include_blank => true} %>
+    <% end %>
+  </div>
+
+  <%= render 'shared/filtering_operations', form: f %>
+<% end %>

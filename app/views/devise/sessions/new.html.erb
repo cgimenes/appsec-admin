@@ -1,0 +1,22 @@
+<section class="signin">
+  <div class="text-center w-100">
+    <a class="d-inline-block mb-2 h1 no-hover" href="<%= root_path %>">
+      <%= image_tag 'logo_black.png', {height: 45, width: 45, class: 'align-top'} %>
+      AppSecAdmin
+    </a>
+    <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name), html: {:class => 'form-signin'}) do |f| %>
+      <%= f.ungrouped_text_field :email, autofocus: true, autocomplete: 'email', placeholder: 'Email', class: '' %>
+
+      <%= f.ungrouped_password_field :password, autocomplete: 'off', placeholder: 'Password', class: '' %>
+
+      <% if flash[:alert] %>
+        <p class="text-danger"> <%= flash[:alert] %></p>
+      <% end %>
+
+      <%= f.submit 'Sign in', class: %w(btn-lg btn-block) %>
+    <% end %>
+    <p>
+      <%= render 'devise/shared/links' %>
+    </p>
+  </div>
+</section>

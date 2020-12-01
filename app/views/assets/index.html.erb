@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Assets
+<% end %>
+
+<% content_for :filters do %>
+  <%= render 'filters' %>
+<% end %>
+
+<%= render 'shared/data_table', type: Asset, models: @assets %>

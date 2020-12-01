@@ -1,0 +1,13 @@
+<% if success %>
+  $('.notifications').append(`<%= render partial: 'shared/notification', locals: {message: 'Asset was successfully created.', type: :notice} %>`);
+  $('#new-asset').modal('hide');
+
+  var select = $('#' + $('#asset-form-field select')[0].id);
+  select.empty().append($('<option></option>').attr("value", "").text(""));
+  <% Asset.all.each do |t| %>
+    select.append($('<option></option>').attr("value", "<%= t.id %>").text("<%= t.name %>"));
+  <% end %>
+  $('#new-asset .modal-body').html(`<%= render partial: 'form', locals: {asset: Asset.new, local: false, format: :js} %>`);
+<% else %>
+  $('#new-asset .modal-body').html(`<%= render partial: 'form', locals: {asset: asset, local: false, format: :js} %>`);
+<% end %>

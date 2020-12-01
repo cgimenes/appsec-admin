@@ -1,0 +1,74 @@
+<%= bootstrap_form_with(model: vuln, local: true) do |form| %>
+  <div class="row">
+    <div class="col">
+      <%= form.text_field :title %>
+
+      <%= form.text_area :description %>
+
+      <%= form.select :risk, Vuln.risk.options %>
+
+      <div id="team-form-field">
+        <%= form.label :team_id %>
+        <% if can? :create, Team %>
+          <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#new-team">
+            <i class="fa fa-plus"></i>
+            <span>Add</span>
+          </a>
+        <% end %>
+        <%= form.select(:team_id, (Team.all.collect {|t| [t.name, t.id]}), {:include_blank => true}, {}, false) %>
+      </div>
+
+      <%= form.select :status, Vuln.status.options %>
+    </div>
+    <div class="col">
+      <%= form.date_field :reported_at %>
+
+      <div id="asset-form-field">
+        <%= form.label :affected_asset_id %>
+        <% if can? :create, Asset %>
+          <a class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#new-asset">
+            <i class="fa fa-plus"></i>
+            <span>Add</span>
+          </a>
+        <% end %>
+        <%= form.select(:affected_asset_id, (Asset.all.collect {|t| [t.name, t.id]}), {:include_blank => true}, {}, false) %>
+      </div>
+
+      <%= form.date_field :fixed_at %>
+    </div>
+  </div>
+
+  <%= form.submit 'Save' %>
+<% end %>
+
+<div class="modal fade" id="new-asset" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Asset</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'assets/form', asset: Asset.new, local: false, format: :js %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="new-team" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Team</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'teams/form', team: Team.new, local: false, format: :js %>
+      </div>
+    </div>
+  </div>
+</div>

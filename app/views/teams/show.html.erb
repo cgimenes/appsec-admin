@@ -1,0 +1,17 @@
+<% content_for :title do %>
+  Team <%= @team.id %>
+<% end %>
+
+<% content_for :operations do %>
+  <%= render 'shared/operations', type: Team, model: @team %>
+<% end %>
+
+<div>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</div>
+
+<div>
+  <strong>Description:</strong>
+  <pre><%= @team.description %></pre>
+</div>

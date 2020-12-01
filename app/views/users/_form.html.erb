@@ -1,0 +1,11 @@
+<%= bootstrap_form_with(model: user, local: true) do |form| %>
+  <%= form.text_field :email, :disabled => !@user.new_record? %>
+
+  <%= form.text_field :fullname %>
+
+  <% if can? :assign_roles, User %>
+    <%= form.select(:role, User.role.options, {:include_blank => true}) %>
+  <% end %>
+
+  <%= form.submit 'Save' %>
+<% end %>

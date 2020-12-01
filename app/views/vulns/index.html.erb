@@ -1,0 +1,20 @@
+<% content_for :title do %>
+  Vulnerabilities
+<% end %>
+
+<% content_for :filters do %>
+  <%= render 'filters' %>
+<% end %>
+
+<%= render 'shared/data_table', type: Vuln, models: @vulns, hide_operations: true, custom_fields: Proc.new {|field, value|
+  case field
+  when :financial_loss, :data_leak
+    "<span class=\"icon\"><i class=\"#{boolean_icon_class value}\"></i></span>".html_safe
+  when :risk
+    "<span class=\"#{risk_class value}\">#{value.humanize}</span>".html_safe
+  when :status
+    "<span class=\"#{status_class value}\">#{value.humanize}</span>".html_safe
+  else
+    value
+  end
+} %>

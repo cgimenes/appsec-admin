@@ -1,0 +1,7 @@
+<%= bootstrap_form_with(model: team, local: local_assigns.key?(:local) ? local : true, format: local_assigns[:format]) do |form| %>
+  <%= form.text_field :name %>
+
+  <%= form.text_area :description %>
+
+  <%= form.submit 'Save' %>
+<% end %>

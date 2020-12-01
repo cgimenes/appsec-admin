@@ -1,0 +1,17 @@
+<% content_for :title do %>
+  Users
+<% end %>
+
+<% content_for :filters do %>
+  <%= render 'filters' %>
+<% end %>
+
+<%= render 'shared/data_table', type: User, models: @users, hide_operations: true, custom_fields: Proc.new {|field, value, user|
+  if field == :role
+    bootstrap_form_with(model: user, local: true) {|form|
+      form.ungrouped_select(:role, User.role.options, { :include_blank => true }, { class: 'form-control-sm w-auto', onchange: 'this.form.submit();'}, false)
+    }
+  else
+    value
+  end
+} %>

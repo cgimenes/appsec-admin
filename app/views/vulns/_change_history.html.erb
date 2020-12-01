@@ -1,0 +1,41 @@
+<div class="modal fade" id="change-history" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change history</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover table-mw-400px table-wb-word table-sm">
+          <thead>
+          <tr>
+            <th>Author</th>
+            <th>Event</th>
+            <th>Changeset</th>
+            <th>Occurred on</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @vuln.versions.includes([:item]).each do |version| %>
+            <tr>
+              <td><%= version.whodunnit %></td>
+              <td><%= version.event.humanize %></td>
+              <td>
+                <% version.changeset.select {|field, _| field != 'updated_at'}.each do |field, change| %>
+                  <div>
+                    <strong><%= field.humanize %>:</strong>
+                    <%= change[0] %> <strong>-></strong> <%= change[1] %>
+                  </div>
+                <% end %>
+              </td>
+              <td><%= version.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

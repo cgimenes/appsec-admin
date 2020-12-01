@@ -1,0 +1,46 @@
+<%= search_form_for @query, builder: BootstrapRansackFormBuilder do |f| %>
+  <div class="d-flex flex-wrap">
+    <%= f.form_group do %>
+      <%= f.label :title_cont %>
+      <%= f.search_field :title_cont %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :description_cont %>
+      <%= f.search_field :description_cont %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :team_id_eq %>
+      <%= f.select :team_id_eq, Team.where(id: Vuln.distinct.pluck(:team_id)).map {|w| [w.name, w.id]}, {:include_blank => true} %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :status_eq %>
+      <%= f.select :status_eq, Vuln.status.options, {:include_blank => true} %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :risk_eq %>
+      <%= f.select :risk_eq, Vuln.risk.options, {:include_blank => true} %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :reporter_id_eq %>
+      <%= f.select :reporter_id_eq, User.where(id: Vuln.distinct.pluck(:reporter_id)).map {|w| [w.fullname, w.id]}, {:include_blank => true} %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :reported_at_gteq %>
+      <%= f.date_field :reported_at_gteq %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :reported_at_lteq %>
+      <%= f.date_field :reported_at_lteq %>
+    <% end %>
+
+  </div>
+
+  <%= render 'shared/filtering_operations', form: f %>
+<% end %>

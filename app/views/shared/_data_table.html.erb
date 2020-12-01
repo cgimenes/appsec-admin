@@ -1,0 +1,53 @@
+<% content_for :operations do %>
+  <% if can? :create, type %>
+    <a class="btn btn-outline-primary" href="<%= url_for(only_path: true, action: 'new') %>">
+      <i class="fa fa-plus"></i>
+      <span>Add</span>
+    </a>
+  <% end %>
+<% end %>
+
+<% if content_for? :filters %>
+  <fieldset class="collapsible">
+    <legend data-toggle="collapse" data-target="#filters">Filters</legend>
+    <div class="filters collapse mb-3" id="filters">
+      <%= yield :filters %>
+    </div>
+  </fieldset>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table table-sm table-hover table-stripped table-nonfluid table-va-middle table-ws-nowrap table-text-truncate table-mw-400px">
+    <thead class="thead-light">
+    <tr>
+      <% type.data_table_columns.each do |column, sort| %>
+        <th scope="col"><%= sort.is_a?(Symbol) ? sort_link(@query, sort, column.to_s.humanize) : column.to_s.humanize %></th>
+      <% end %>
+      <% if !local_assigns.fetch(:hide_operations, false) && (can?(:update, type) || can?(:destroy, type)) %>
+        <th style="width: 1px" colspan="1"></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% models.each do |model| %>
+      <tr>
+        <% model.data_table_row.each_with_index do |(field, value), index| %>
+          <td title="<%= value %>" scope="row">
+            <% if index == 0 %>
+              <strong><%= link_to value, model %></strong>
+            <% else %>
+              <%= local_assigns.key?(:custom_fields) ? custom_fields.call(field, value, model) : value %>
+            <% end %>
+          </td>
+        <% end %>
+        <% unless local_assigns.fetch(:hide_operations, false) %>
+          <td><%= render 'shared/operations', type: type, model: model, html_class: 'btn-sm' %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate models, renderer: BootstrapLinkRenderer %>

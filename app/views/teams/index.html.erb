@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  Teams
+<% end %>
+
+<% content_for :filters do %>
+  <%= render 'filters' %>
+<% end %>
+
+<%= render 'shared/data_table', type: Team, models: @teams, hide_operations: true %>

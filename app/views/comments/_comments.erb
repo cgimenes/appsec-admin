@@ -1,0 +1,35 @@
+<% @comments.each do |c| %>
+  <div class="comment">
+    <div class="comment-body">
+      <div class="content">
+        <%= render_markdown c.body %>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end align-items-center">
+      <div>
+        <div>
+          <small><%= link_to c.user.fullname, c.user %></small>
+        </div>
+        <div>
+          <small><%= c.created_at.strftime('%Y-%m-%d %H:%M:%S') %></small>
+          <% if c.edited %>
+            <i class="fa fa-edit" title="Edited at: <%= c.updated_at.strftime('%Y-%m-%d %H:%M:%S') %>"></i>
+          <% end %>
+        </div>
+      </div>
+      <div class="ml-2">
+        <%# if can? :update, c %>
+        <%#= link_to 'Edit', edit_comment_path(c), class: 'button is-small' %>
+        <%# end %>
+        <% if can? :destroy, c %>
+          <%= link_to 'Destroy', c, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-outline-danger btn-sm' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% if @comments.empty? %>
+  <h6 class="text-secondary text-center">
+    No comments
+  </h6>
+<% end %>

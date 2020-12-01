@@ -1,0 +1,14 @@
+<%= search_form_for @query, builder: BootstrapRansackFormBuilder do |f| %>
+  <div class="d-flex flex-wrap">
+    <%= f.form_group do %>
+      <%= f.label :name_cont %>
+      <%= f.search_field :name_cont %>
+    <% end %>
+
+    <%= f.form_group do %>
+      <%= f.label :description_cont %>
+      <%= f.search_field :description_cont %>
+    <% end %>
+  </div>
+  <%= render 'shared/filtering_operations', form: f %>
+<% end %>
